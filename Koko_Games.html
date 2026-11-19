@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111827">
+<title>Koko Games</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at top,#263b68,#101827 60%);color:#fff;font-family:Arial,Tahoma,sans-serif;min-height:100vh}
+header{text-align:center;padding:30px 15px 22px}
+.logo{font-size:48px}
+h1{font-size:clamp(34px,8vw,58px);margin:8px 0;color:#ffd34e;letter-spacing:1px}
+header p{color:#d6e2f5;font-size:17px;margin:8px 0}
+main{width:min(100% - 28px,1000px);margin:0 auto 35px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin-top:22px}
+.game-card{background:linear-gradient(145deg,#fff,#e8f1ff);color:#17233b;border:0;border-radius:20px;padding:22px 16px;min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;box-shadow:0 10px 24px #0005;cursor:pointer;transition:transform .15s}
+.game-card:active{transform:scale(.97)}
+.emoji{font-size:54px}
+.game-card strong{font-size:23px}
+.game-card small{font-size:14px;color:#526078}
+.play{background:#ffca3a;color:#17233b;border-radius:12px;padding:10px 18px;font-weight:bold;margin-top:5px}
+.note{text-align:center;color:#c8d5e8;font-size:13px;margin:24px 0}
+.game-panel{background:#fff;color:#17233b;border-radius:18px;padding:12px;box-shadow:0 10px 30px #0006}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:4px 6px 12px}
+.panel-head h2{margin:5px 0;font-size:20px}
+.back{border:0;border-radius:10px;background:#183153;color:white;padding:10px 14px;font-weight:bold;font-size:14px}
+iframe{width:100%;height: min(76vh,760px);min-height:520px;border:0;border-radius:12px;background:#fff}
+[hidden]{display:none!important}
+footer{text-align:center;color:#aebbd0;padding:10px 15px 25px;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo">🎮</div>
+ <h1>Koko Games</h1>
+ <p>ألعاب كوكو — اختار لعبتك وابدأ المغامرة!</p>
+</header>
+<main>
+ <div id="home">
+  <div class="grid"><button class="game-card" onclick="openGame(0)"><span class="emoji">🚔</span><strong>Jojo Land</strong><small>عالم مفتوح — شرطي وحرامي وعملات</small><span class="play">العب الآن ▶</span></button><button class="game-card" onclick="openGame(1)"><span class="emoji">🤖</span><strong>Robot Store</strong><small>متجر روبوتات وتحدي حجر ورقة مقص</small><span class="play">العب الآن ▶</span></button><button class="game-card" onclick="openGame(2)"><span class="emoji">♟️</span><strong>Koko Land Chess</strong><small>شطرنج لاعبين على نفس الموبايل</small><span class="play">العب الآن ▶</span></button></div>
+  <p class="note">تقدر تفتح الموقع من Google Chrome. الألعاب الموجودة هنا تعمل من نفس الصفحة.</p>
+ </div>
+ <section class="game-panel" id="panel0" hidden><div class="panel-head"><h2>🚔 Jojo Land</h2><button class="back" onclick="showHome()">🏠 رجوع للألعاب</button></div><iframe title="Jojo Land" sandbox="allow-scripts allow-same-origin" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ar&quot; dir=&quot;rtl&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;
+&lt;style&gt;
+body{margin:0;background:#1e293b;color:#fff;font-family:Tahoma,sans-serif;text-align:center;user-select:none}
+h2{margin:10px 0;color:#fbbf24}
+#hud{display:flex;justify-content:center;gap:20px;font-size:18px;margin-bottom:8px}
+canvas{background:#334155;border:3px solid #fbbf24;border-radius:12px;max-width:95vw}
+.controls{margin-top:10px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+button{padding:12px 18px;font-size:18px;border:0;border-radius:10px;background:#fbbf24;color:#0f172a;font-weight:bold;cursor:pointer}
+&lt;/style&gt;&lt;/head&gt;&lt;body&gt;
+&lt;h2&gt;🚔 Jojo Land&lt;/h2&gt;
+&lt;div id=&quot;hud&quot;&gt;&lt;span&gt;العملات: &lt;b id=&quot;score&quot;&gt;0&lt;/b&gt;&lt;/span&gt;&lt;span&gt;الحالة: &lt;b id=&quot;status&quot;&gt;اجمع العملات واهرب من الشرطي!&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;canvas id=&quot;c&quot; width=&quot;400&quot; height=&quot;360&quot;&gt;&lt;/canvas&gt;
+&lt;div class=&quot;controls&quot;&gt;
+&lt;button onclick=&quot;move(0,-20)&quot;&gt;⬆️&lt;/button&gt;
+&lt;button onclick=&quot;move(0,20)&quot;&gt;⬇️&lt;/button&gt;
+&lt;button onclick=&quot;move(20,0)&quot;&gt;➡️&lt;/button&gt;
+&lt;button onclick=&quot;move(-20,0)&quot;&gt;⬅️&lt;/button&gt;
+&lt;button onclick=&quot;resetGame()&quot;&gt;🔄 إعادة&lt;/button&gt;
+&lt;/div&gt;
+&lt;script&gt;
+const c=document.getElementById(&#x27;c&#x27;),ctx=c.getContext(&#x27;2d&#x27;);
+let p,cop,coin,score,over;
+function resetGame(){p={x:40,y:40};cop={x:320,y:280};coin={x:200,y:160};score=0;over=false;document.getElementById(&#x27;score&#x27;).textContent=0;document.getElementById(&#x27;status&#x27;).textContent=&#x27;اجمع العملات واهرب من الشرطي!&#x27;;draw();}
+function move(dx,dy){if(over)return;p.x=Math.max(10,Math.min(370,p.x+dx));p.y=Math.max(10,Math.min(330,p.y+dy));
+if(Math.hypot(p.x-coin.x,p.y-coin.y)&lt;25){score+=10;document.getElementById(&#x27;score&#x27;).textContent=score;coin={x:20+Math.random()*340,y:20+Math.random()*300};}
+cop.x+=Math.sign(p.x-cop.x)*7;cop.y+=Math.sign(p.y-cop.y)*7;
+if(Math.hypot(p.x-cop.x,p.y-cop.y)&lt;24){over=true;document.getElementById(&#x27;status&#x27;).textContent=&#x27;🚨 الشرطي مسكك!&#x27;;}
+draw();}
+function draw(){ctx.clearRect(0,0,400,360);ctx.font=&#x27;26px Arial&#x27;;ctx.fillText(&#x27;🪙&#x27;,coin.x-12,coin.y+10);ctx.fillText(&#x27;🏃&#x27;,p.x-12,p.y+10);ctx.fillText(&#x27;🚔&#x27;,cop.x-12,cop.y+10);}
+window.addEventListener(&#x27;keydown&#x27;,e=&gt;{if(e.key===&#x27;ArrowUp&#x27;)move(0,-20);if(e.key===&#x27;ArrowDown&#x27;)move(0,20);if(e.key===&#x27;ArrowRight&#x27;)move(20,0);if(e.key===&#x27;ArrowLeft&#x27;)move(-20,0);});
+resetGame();
+&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></section><section class="game-panel" id="panel1" hidden><div class="panel-head"><h2>🤖 Robot Store</h2><button class="back" onclick="showHome()">🏠 رجوع للألعاب</button></div><iframe title="Robot Store" sandbox="allow-scripts allow-same-origin" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ar&quot; dir=&quot;rtl&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;
+&lt;style&gt;
+body{margin:0;background:#0f172a;color:#f8fafc;font-family:Tahoma,sans-serif;text-align:center;padding:15px}
+h2{color:#38bdf8}
+.box{background:#1e293b;border-radius:16px;padding:16px;max-width:460px;margin:10px auto}
+.choices{display:flex;justify-content:center;gap:12px;margin:15px 0}
+button{padding:12px 16px;font-size:16px;border:0;border-radius:12px;background:#38bdf8;color:#0f172a;font-weight:bold;cursor:pointer}
+.shop{display:flex;justify-content:space-around;flex-wrap:wrap;gap:10px;margin-top:10px}
+.item{background:#334155;padding:10px;border-radius:12px;width:120px}
+&lt;/style&gt;&lt;/head&gt;&lt;body&gt;
+&lt;h2&gt;🤖 متجر الروبوتات وتحدي حجر ورقة مقص&lt;/h2&gt;
+&lt;div class=&quot;box&quot;&gt;
+&lt;div&gt;رصيدك: &lt;b id=&quot;coins&quot;&gt;50&lt;/b&gt; 🪙 | روبوتك الحالي: &lt;b id=&quot;bot&quot;&gt;🤖 روبوت مبتدئ&lt;/b&gt;&lt;/div&gt;
+&lt;div class=&quot;choices&quot;&gt;
+&lt;button onclick=&quot;play(&#x27;حجر&#x27;)&quot;&gt;🪨 حجر&lt;/button&gt;
+&lt;button onclick=&quot;play(&#x27;ورقة&#x27;)&quot;&gt;📄 ورقة&lt;/button&gt;
+&lt;button onclick=&quot;play(&#x27;مقص&#x27;)&quot;&gt;✂️ مقص&lt;/button&gt;
+&lt;/div&gt;
+&lt;p id=&quot;res&quot;&gt;اختار حركتك لتحدي الروبوت المنافس!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;box&quot;&gt;
+&lt;h3&gt;🛒 متجر الروبوتات&lt;/h3&gt;
+&lt;div class=&quot;shop&quot;&gt;
+&lt;div class=&quot;item&quot;&gt;&lt;div&gt;🦾 روبوت سريع&lt;/div&gt;&lt;small&gt;30 🪙&lt;/small&gt;&lt;br&gt;&lt;button onclick=&quot;buy(&#x27;🦾 روبوت سريع&#x27;,30)&quot;&gt;شراء&lt;/button&gt;&lt;/div&gt;
+&lt;div class=&quot;item&quot;&gt;&lt;div&gt;🚀 روبوت فضائي&lt;/div&gt;&lt;small&gt;70 🪙&lt;/small&gt;&lt;br&gt;&lt;button onclick=&quot;buy(&#x27;🚀 روبوت فضائي&#x27;,70)&quot;&gt;شراء&lt;/button&gt;&lt;/div&gt;
+&lt;div class=&quot;item&quot;&gt;&lt;div&gt;👑 روبوت ذهبي&lt;/div&gt;&lt;small&gt;120 🪙&lt;/small&gt;&lt;br&gt;&lt;button onclick=&quot;buy(&#x27;👑 روبوت ذهبي&#x27;,120)&quot;&gt;شراء&lt;/button&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;script&gt;
+let coins=50;
+function play(u){const opts=[&#x27;حجر&#x27;,&#x27;ورقة&#x27;,&#x27;مقص&#x27;];const b=opts[Math.floor(Math.random()*3)];let msg=&#x27;&#x27;;
+if(u===b){msg=`تعادل! انت والروبوت اخترتوا ${u}`;}
+else if((u===&#x27;حجر&#x27;&amp;&amp;b===&#x27;مقص&#x27;)||(u===&#x27;ورقة&#x27;&amp;&amp;b===&#x27;حجر&#x27;)||(u===&#x27;مقص&#x27;&amp;&amp;b===&#x27;ورقة&#x27;)){coins+=20;msg=`🎉 كسبت! انت ${u} والروبوت ${b} (+20 عملة)`;}
+else{coins=Math.max(0,coins-10);msg=`😅 خسرت! انت ${u} والروبوت ${b} (-10 عملات)`;}
+document.getElementById(&#x27;coins&#x27;).textContent=coins;document.getElementById(&#x27;res&#x27;).textContent=msg;}
+function buy(name,cost){if(coins&gt;=cost){coins-=cost;document.getElementById(&#x27;coins&#x27;).textContent=coins;document.getElementById(&#x27;bot&#x27;).textContent=name;alert(&#x27;مبروك اشتريت &#x27;+name);}else{alert(&#x27;عملاتك مش كفاية! اكسب في التحدي الأول.&#x27;);}}
+&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></section><section class="game-panel" id="panel2" hidden><div class="panel-head"><h2>♟️ Koko Land Chess</h2><button class="back" onclick="showHome()">🏠 رجوع للألعاب</button></div><iframe title="Koko Land Chess" sandbox="allow-scripts allow-same-origin" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ar&quot; dir=&quot;rtl&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;
+&lt;style&gt;
+body{margin:0;background:#18181b;color:#fff;font-family:Tahoma,sans-serif;text-align:center;padding:10px}
+h2{color:#a7f3d0;margin:8px 0}
+#board{display:grid;grid-template-columns:repeat(8,1fr);width:min(92vw,380px);height:min(92vw,380px);margin:10px auto;border:4px solid #78350f}
+.sq{display:flex;align-items:center;justify-content:center;font-size:clamp(22px,6vw,34px);cursor:pointer;user-select:none}
+.light{background:#fde68a;color:#000}.dark{background:#92400e;color:#000}
+.sel{outline:3px solid #22c55e;z-index:1}
+button{padding:10px 18px;border:0;border-radius:10px;background:#a7f3d0;color:#064e3b;font-weight:bold;cursor:pointer}
+&lt;/style&gt;&lt;/head&gt;&lt;body&gt;
+&lt;h2&gt;♟️ Koko Land Chess&lt;/h2&gt;
+&lt;div id=&quot;turn&quot;&gt;الدور: الأبيض&lt;/div&gt;
+&lt;div id=&quot;board&quot;&gt;&lt;/div&gt;
+&lt;button onclick=&quot;init()&quot;&gt;🔄 بدء دور جديد&lt;/button&gt;
+&lt;script&gt;
+const start=[
+[&#x27;♜&#x27;,&#x27;♞&#x27;,&#x27;♝&#x27;,&#x27;♛&#x27;,&#x27;♚&#x27;,&#x27;♝&#x27;,&#x27;♞&#x27;,&#x27;♜&#x27;],
+[&#x27;♟&#x27;,&#x27;♟&#x27;,&#x27;♟&#x27;,&#x27;♟&#x27;,&#x27;♟&#x27;,&#x27;♟&#x27;,&#x27;♟&#x27;,&#x27;♟&#x27;],
+[&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;],[&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;],
+[&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;],[&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;],
+[&#x27;♙&#x27;,&#x27;♙&#x27;,&#x27;♙&#x27;,&#x27;♙&#x27;,&#x27;♙&#x27;,&#x27;♙&#x27;,&#x27;♙&#x27;,&#x27;♙&#x27;],
+[&#x27;♖&#x27;,&#x27;♘&#x27;,&#x27;♗&#x27;,&#x27;♕&#x27;,&#x27;♔&#x27;,&#x27;♗&#x27;,&#x27;♘&#x27;,&#x27;♖&#x27;]
+];
+let grid,sel=null,whiteTurn=true;
+function init(){grid=start.map(r=&gt;[...r]);sel=null;whiteTurn=true;render();}
+function render(){const b=document.getElementById(&#x27;board&#x27;);b.innerHTML=&#x27;&#x27;;document.getElementById(&#x27;turn&#x27;).textContent=&#x27;الدور: &#x27;+(whiteTurn?&#x27;الأبيض ⚪&#x27;:&#x27;الأسود ⚫&#x27;);
+for(let r=0;r&lt;8;r++)for(let c=0;c&lt;8;c++){const d=document.createElement(&#x27;div&#x27;);d.className=&#x27;sq &#x27;+((r+c)%2===0?&#x27;light&#x27;:&#x27;dark&#x27;)+(sel&amp;&amp;sel.r===r&amp;&amp;sel.c===c?&#x27; sel&#x27;:&#x27;&#x27;);d.textContent=grid[r][c];d.onclick=()=&gt;tap(r,c);b.appendChild(d);}}
+function tap(r,c){if(sel){if(sel.r!==r||sel.c!==c){grid[r][c]=grid[sel.r][sel.c];grid[sel.r][sel.c]=&#x27;&#x27;;whiteTurn=!whiteTurn;}sel=null;}else if(grid[r][c]){sel={r,c};}render();}
+init();
+&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></section>
+</main>
+<footer>© Koko Games</footer>
+<script>
+function openGame(n){
+ document.getElementById('home').hidden=true;
+ document.querySelectorAll('.game-panel').forEach(p=>p.hidden=true);
+ document.getElementById('panel'+n).hidden=false;
+ window.scrollTo(0,0);
+}
+function showHome(){
+ document.querySelectorAll('.game-panel').forEach(p=>p.hidden=true);
+ document.getElementById('home').hidden=false;
+ window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
